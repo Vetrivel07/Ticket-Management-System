@@ -39,6 +39,7 @@ Employees can register, log in, and submit detailed service tickets including ti
 ├── requirements.txt
 ├── static/
 │ ├── style.css
+│ ├── Screenshots
 │ └── favicon.ico
 │
 ├── templates/

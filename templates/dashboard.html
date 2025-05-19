@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>{{ user[3].capitalize() }} Dashboard</h2>
+
+<p><strong>Username:</strong> {{ user[1] }}</p>
+<p><strong>Email:</strong> {{ user[2] }}</p>
+<p><strong>First Name:</strong> {{ user[4] }}</p>
+<p><strong>Last Name:</strong> {{ user[5] }}</p>
+<p><strong>Date of Birth:</strong> {{ user[6] }}</p>
+<p><strong>Address:</strong> {{ user[7] }}</p>
+<p><strong>Role:</strong> {{ user[3] }}</p>
+
+<!-- Account Management -->
+<h3>Account Management</h3>
+<a href="{{ url_for('edit_account') }}">
+    <button>Edit Account</button>
+</a>
+<form action="{{ url_for('delete_account') }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+    <button type="submit" style="background-color: #dc3545; color: white;">Delete Account</button>
+</form>
+
+<hr>
+
+<!-- Ticket List -->
+{% if tickets %}
+    <h3>Your Tickets:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                {% if user[3] == 'responder' %}
+                    <th>Posted By</th>
+                {% endif %}
+                <th>Status</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in tickets %}
+            <tr>
+                <td>{{ t[0] }}</td>
+                <td>{{ t[1] }}</td>
+                <td>{{ t[2] }}</td>
+                {% if user[3] == 'responder' %}
+                    <td>{{ t[3] }}</td>
+                {% endif %}
+                <td>
+                    {% set status = t[4 if user[3] == 'responder' else 3] %}
+                    {{ 'Completed' if status == 'done' else status.capitalize() }}
+                </td>
+                <td>{{ t[5 if user[3] == 'responder' else 4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No ticket activity yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Ticket Management{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='vm_logo.png') }}" type="image/png">
+
+</head>
+<body>
+
+    <ul class="navbar">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('users') }}">Users</a></li>
+
+        {% if session.get('role') == 'employee' %}
+            <li><a href="{{ url_for('create_ticket') }}">Add Ticket</a></li>
+            <li><a href="{{ url_for('manage_tickets') }}">Manage Tickets</a></li>
+        {% elif session.get('role') == 'responder' %}
+            <li><a href="{{ url_for('home') }}">Manage Tickets</a></li>
+        {% endif %}
+
+        {% if session.get('role') %}
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        {% endif %}
+
+        {% if session.get('username') %}
+            <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li style="float:right"><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+
+    <!-- Main Content Block -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

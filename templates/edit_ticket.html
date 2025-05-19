@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Edit Ticket{% endblock %}
+{% block content %}
+<h2>Edit Ticket #{{ ticket_id }}</h2>
+
+<form method="POST">
+    <label for="title">Title</label>
+    <input type="text" name="title" value="{{ ticket[0] }}" required>
+
+    <label for="description">Description</label>
+    <textarea name="description" rows="5" required>{{ ticket[1] }}</textarea>
+
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

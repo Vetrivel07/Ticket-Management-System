@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Update Ticket{% endblock %}
+
+{% block content %}
+<h2>Update Ticket #{{ ticket.id }}</h2>
+
+<p><strong>Title:</strong> {{ ticket.title }}</p>
+<p><strong>Description:</strong> {{ ticket.description }}</p>
+<p><strong>Submitted By:</strong> {{ ticket.username }}</p>
+<p><strong>Current Status:</strong> {{ 'Completed' if ticket.status == 'done' else ticket.status.capitalize() }} </p>
+
+<form method="POST">
+    <label for="status">Update Status</label>
+    <select name="status" required>
+        <option value="in process">In Process</option>
+        <option value="done">Completed</option>
+        <option value="declined">Declined</option>
+    </select>
+
+    <button type="submit">Update</button>
+</form>
+{% endblock %}

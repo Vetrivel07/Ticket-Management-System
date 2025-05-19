@@ -50,7 +50,10 @@ Employees can register, log in, and submit detailed service tickets including ti
 ```
 ## 📸 Screenshots
 
-![create_ticket](https://github.com/user-attachments/assets/e3dc2258-4b92-4aec-9e99-f96771bd8ae6)
+![Create_ticket](static/Screenshots/create_ticket.png)
+![Home_page](static/Screenshots/home_page.png)
+![Dashboard](static/Screenshots/dashboard_e.png)
+![Dashboard](static/Screenshots/dashboard_r.png)
 
 
 ## Author

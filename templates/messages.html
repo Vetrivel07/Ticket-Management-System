@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2 class="page-title">Messages</h2>
+</div>
+
+<div class="page-body">
+  {% if messages %}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Type</th>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in messages %}
+          <tr>
+            <td>{{ m.created_at }}</td>
+            <td>{{ "Alert" if m.message_type == "alert" else "Message" }}</td>
+            <td>{{ m.sender }}</td>
+            <td>{{ m.subject }}</td>
+            <td>{{ m.body }}</td>
+            <td>{{ "Unread" if m.is_read == 0 else "Read" }}</td>
+            <td>
+              {% if m.is_read == 0 %}
+                <form method="POST" action="{{ url_for('mark_message_read', msg_id=m.id) }}" style="display:inline;">
+                  <button type="submit">Mark as read</button>
+                </form>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <form method="POST" action="{{ url_for('mark_all_messages_read') }}" style="margin-top:12px;">
+      <button type="submit">Mark all as read</button>
+    </form>
+  {% else %}
+    <p class="empty-state">No messages.</p>
+  {% endif %}
+</div>
+{% endblock %}

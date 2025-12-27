@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Reactivate{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2 class="page-title">Reactivate Account</h2>
+</div>
+
+<div class="page-body form-page">
+  <div class="form-card">
+    <p>Your account is currently inactive. Enter your credentials to reactivate.</p>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('reactivate') }}">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Enter your username" required>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter your password" required>
+
+      <button type="submit">Reactivate</button>
+    </form>
+
+    <div style="margin-top:12px;">
+      <a href="{{ url_for('login') }}">Back to login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

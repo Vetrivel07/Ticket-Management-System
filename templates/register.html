@@ -1,43 +1,111 @@
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
-
 {% block content %}
-<h2>Register</h2>
 
-{% if error %}
-<p class="error">{{ error }}</p>
-{% endif %}
+<div class="page-header form-page">
+  <h2 class="page-title">Register</h2>
+</div>
 
-<form action="{{ url_for('register') }}" method="POST">
-    <label for="firstname">First Name</label>
-    <input type="text" name="firstname" required>
+<div class="page-body form-page">
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
 
-    <label for="lastname">Last Name</label>
-    <input type="text" name="lastname" required>
+  <div class="form-card wide">
+    <form id="registerForm" action="{{ url_for('register') }}" method="POST">
 
-    <label for="dob">Date of Birth</label>
-    <input type="date" name="dob" required>
+      <label for="firstname">First Name</label>
+      <input type="text" name="firstname" placeholder="Enter your firstname" required>
 
-    <label for="address">Address</label>
-    <input type="text" name="address" required>
+      <label for="lastname">Last Name</label>
+      <input type="text" name="lastname" placeholder="Enter your lastname" required>
 
-    <label for="username">Username</label>
-    <input type="text" name="username" required>
+      <label for="dob">Date of Birth</label>
+      <input type="date" name="dob" required>
+    
+      <label for="username">Username</label>
+      <input type="text" name="username" placeholder="Enter your username" required>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" required>
+      <label for="email">Email</label>
+      <input type="email" name="email" placeholder="Enter your email" required>
 
-    <label for="password">Password</label>
-    <input type="password" name="password" required>
+      <!-- Address -->
+      <label>Street Address (Line 1)</label>
+      <input type="text" name="address_line1" placeholder="e.g., 123 Main St" required>
 
-    <label for="role">Role</label>
-    <select name="role" required>
+      <label>Address Line 2 (Optional)</label>
+      <input type="text" name="address_line2" placeholder="Apartment, suite, etc.">
+
+      <label>City</label>
+      <input type="text" id="city" name="city" required>
+
+      <label>State</label>
+      <select id="state" name="state" required>
+        <option value="">Select state</option>
+        {% for abbr, name in states %}
+          <option value="{{ abbr }}">{{ name }}</option>
+        {% endfor %}
+      </select>
+
+      <label>ZIP Code</label>
+      <input type="text" id="zip_code" name="zip_code"
+             placeholder="e.g., 90210 or 12345-6789"
+             pattern="^\d{5}(-\d{4})?$" required>
+
+      <label for="profession">Profession</label>
+      <input type="text" name="profession" placeholder="Enter your profession" required>
+
+      <label for="organization">Organization</label>
+      <select name="organization" id="organization" required>
+        <option value="">Select an organization</option>
+        <option value="Technology & IT Services">Technology & IT Services</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Education">Education</option>
+        <option value="Finance & Insurance">Finance & Insurance</option>
+        <option value="Government & Public Sector">Government & Public Sector</option>
+        <option value="Non-Profit / NGO">Non-Profit / NGO</option>
+        <option value="Retail & E-commerce">Retail & E-commerce</option>
+        <option value="Manufacturing">Manufacturing</option>
+        <option value="Others">Others</option>
+      </select>
+
+      <div id="orgOtherWrap" style="display:none;">
+        <label for="organization_other">If Others, specify</label>
+        <input type="text" name="organization_other" id="organization_other" placeholder="Enter organization name">
+      </div>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter phone number" required>
+      <input type="hidden" name="phone_e164" id="phone_e164">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <label for="confirm_password">Re-enter Password</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+
+      <p id="pwError" class="error" style="display:none; margin: 6px 0 0;">
+        Passwords do not match
+      </p>
+
+      <label for="role">Role</label>
+      <select name="role" required>
         <option value="employee">Employee</option>
         <option value="responder">Responder</option>
-    </select>
+      </select>
 
-    <button type="submit">Register</button>
-</form>
+      <button id="registerBtn" type="submit">Register</button>
+    </form>
 
-<p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+  </div>
+</div>
+
+<!-- Phone input library (country dropdown + format + E.164) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"></script>
+
+<!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
+
 {% endblock %}

@@ -1,40 +1,90 @@
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Ticket Management{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='vm_logo.png') }}" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Ticket Management{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='vm_logo.png') }}" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 <body>
 
-    <ul class="navbar">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('users') }}">Users</a></li>
-
-        {% if session.get('role') == 'employee' %}
-            <li><a href="{{ url_for('create_ticket') }}">Add Ticket</a></li>
-            <li><a href="{{ url_for('manage_tickets') }}">Manage Tickets</a></li>
-        {% elif session.get('role') == 'responder' %}
-            <li><a href="{{ url_for('home') }}">Manage Tickets</a></li>
-        {% endif %}
-
-        {% if session.get('role') %}
-            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-        {% endif %}
-
-        {% if session.get('username') %}
-            <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
-        {% else %}
-            <li style="float:right"><a href="{{ url_for('login') }}">Login</a></li>
-        {% endif %}
-    </ul>
-
-    <!-- Main Content Block -->
-    <div class="container">
-        {% block content %}{% endblock %}
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='vm_logo.png') }}" alt="Logo">
+      </div>
+      <div class="brand-text">
+        Ticket <span>System</span>
+      </div>
     </div>
 
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+
+      {% if session.get('username') %}
+        <!-- Logged-in navigation -->
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('users') }}">Users</a>
+
+        {% if session.get('role') == 'employee' %}
+          <a href="{{ url_for('create_ticket') }}">Add Ticket</a>
+          <a href="{{ url_for('manage_tickets') }}">Manage Tickets</a>
+        {% elif session.get('role') == 'responder' %}
+          <a href="{{ url_for('home') }}">Manage Tickets</a>
+        {% endif %}
+
+        <div class="profile">
+          <button class="profile-btn" id="profileBtn" type="button" aria-expanded="false">
+            Profile ▾
+          </button>
+
+          <div class="profile-menu" id="profileMenu">
+            <div class="profile-name">
+              {{ session['username'] }} ({{ session['role'].capitalize() }})
+            </div>
+
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+            <a href="{{ url_for('messages') }}">
+              Messages
+              {% if unread_count and unread_count > 0 %}
+                <span class="badge">{{ unread_count }}</span>
+              {% endif %}
+            </a>
+
+            <a href="{{ url_for('logout') }}">Logout</a>
+          </div>
+        </div>
+
+      {% else %}
+        <!-- Public navigation -->
+        <a href="{{ url_for('login') }}">Login</a>
+      {% endif %}
+
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+
+{% block footer %}{% endblock %}
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

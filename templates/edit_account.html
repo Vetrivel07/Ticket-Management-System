@@ -1,24 +1,103 @@
 {% extends "base.html" %}
 {% block title %}Edit Account{% endblock %}
 {% block content %}
-<h2>Edit Account Details</h2>
 
-<form method="POST">
-    <label for="firstname">First Name</label>
-    <input type="text" name="firstname" value="{{ user[0] }}" required>
+<div class="page-header">
+  <h2 class="page-title">Edit Account Details</h2>
+</div>
 
-    <label for="lastname">Last Name</label>
-    <input type="text" name="lastname" value="{{ user[1] }}" required>
+<div class="page-body form-page">
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
 
-    <label for="dob">Date of Birth</label>
-    <input type="date" name="dob" value="{{ user[2] }}" required>
+  <div class="form-card wide">
+    <form id="editAccountForm" method="POST">
 
-    <label for="address">Address</label>
-    <input type="text" name="address" value="{{ user[3] }}" required>
+      <label>First Name</label>
+      <input type="text" name="firstname" value="{{ user[0] or '' }}" required>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" value="{{ user[4] }}" required>
+      <label>Last Name</label>
+      <input type="text" name="lastname" value="{{ user[1] or '' }}" required>
 
-    <button type="submit">Save Changes</button>
-</form>
+      <label>Date of Birth</label>
+      <input type="date" name="dob" value="{{ user[2] or '' }}" required>
+
+      <label>Street Address (Line 1)</label>
+      <input type="text" name="address_line1" value="{{ user[3] or '' }}" required>
+
+      <label>Address Line 2 (Optional)</label>
+      <input type="text" name="address_line2" value="{{ user[4] or '' }}">
+
+      <label>City</label>
+      <input type="text" id="city" name="city" value="{{ user[5] or '' }}" required>
+
+      <label>State</label>
+      <select id="state" name="state" required>
+        <option value="">Select state</option>
+        {% for abbr, name in states %}
+          <option value="{{ abbr }}" {% if user[6] == abbr %}selected{% endif %}>
+            {{ name }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <label>ZIP Code</label>
+      <input type="text" id="zip_code" name="zip_code"
+             value="{{ user[7] or '' }}"
+             placeholder="e.g., 90210 or 12345-6789"
+             pattern="^\d{5}(-\d{4})?$" required>
+
+      <label>Email</label>
+      <input type="email" name="email" value="{{ user[8] or '' }}" required>
+
+      <label>Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter phone number" value="{{ user[9] or '' }}" required>
+      <input type="hidden" name="phone_e164" id="phone_e164" value="{{ user[9] or '' }}">
+
+      <label>Profession</label>
+      <input type="text" name="profession" value="{{ user[10] or '' }}" required>
+
+      <label>Organization</label>
+      <select name="organization" id="organization" required>
+        <option value="">Select an organization</option>
+
+        {% set org = user[11] or '' %}
+        {% set known = [
+          "Technology & IT Services",
+          "Healthcare",
+          "Education",
+          "Finance & Insurance",
+          "Government & Public Sector",
+          "Non-Profit / NGO",
+          "Retail & E-commerce",
+          "Manufacturing"
+        ] %}
+
+        {% for opt in known %}
+          <option value="{{ opt }}" {% if org == opt %}selected{% endif %}>{{ opt }}</option>
+        {% endfor %}
+
+        <option value="Others" {% if org and (org not in known) %}selected{% endif %}>Others</option>
+      </select>
+
+      <div id="orgOtherWrap" style="display:none;">
+        <label>If Others, specify</label>
+        <input type="text" name="organization_other" id="organization_other"
+               value="{% if org and (org not in known) %}{{ org }}{% endif %}"
+               placeholder="Enter organization name">
+      </div>
+
+      <div class="form-actions">
+        <a class="btn-secondary" href="{{ url_for('dashboard') }}">Cancel</a>
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"></script>
+
 {% endblock %}

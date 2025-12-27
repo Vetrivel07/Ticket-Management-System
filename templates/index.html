@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Ticket System{% endblock %}
+
+{% block content %}
+<div class="landing">
+  <div class="hero">
+    <h1>Ticket Management System</h1>
+    <p>
+      A simple and efficient platform for employees to raise tickets and
+      responders to manage and resolve them.
+    </p>
+
+    <div class="hero-actions">
+      <a href="{{ url_for('login') }}" class="btn-primary">Login</a>
+      <a href="{{ url_for('register') }}" class="btn-secondary">Sign Up</a>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>Raise Tickets</h3>
+      <p>Employees can create and track issues easily.</p>
+    </div>
+    <div class="feature">
+      <h3>Respond & Resolve</h3>
+      <p>Responders manage tickets with clear status tracking.</p>
+    </div>
+    <div class="feature">
+      <h3>Messaging</h3>
+      <p>Direct messages and system alerts in one place.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-col">
+      <h4>About This Project</h4>
+      <p>
+        This Ticket Management System is a real-world SQL-driven web application
+        built as part of my Master’s studies. It focuses on database design,
+        role-based workflows, messaging, and audit tracking.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>About Me</h4>
+      <p>
+        I’m <a href="https://www.linkedin.com/in/vetrivel-maheswaran/" target="_blank">Vetrivel Maheswaran</a>, a Master’s student.
+        My background spans Machine Learning, AI models, Databases, and full-stack prototyping.
+        I enjoy turning complex research concepts into practical systems - whether that’s building scalable retrieval pipelines,
+        visualizing large knowledge graphs, or deploying ML-powered applications.
+        </p>
+
+    </div>
+
+    <div class="footer-col">
+      <h4>Connect</h4>
+
+      <div class="contactSocial">
+        <a class="socialBtn" href="https://www.linkedin.com/in/vetrivel-maheswaran/" target="_blank" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a class="socialBtn" href="https://twitter.com/irtev_m_07" target="_blank" aria-label="Twitter">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a class="socialBtn" href="https://github.com/vetrivel07" target="_blank" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a class="socialBtn" href="https://discordapp.com/users/914083343342133248" target="_blank" aria-label="Discord">
+          <i class="fa-brands fa-discord"></i>
+        </a>
+        <a class="socialBtn" href="https://pin.it/4igfWWDru" target="_blank" aria-label="Pinterest">
+          <i class="fa-brands fa-pinterest"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    Copyright © {{ current_year }} Vetrivel Maheswaran
+  </div>
+</footer>
+{% endblock %}

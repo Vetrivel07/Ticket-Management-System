@@ -1,32 +1,75 @@
 {% extends "base.html" %}
-
 {% block title %}Users{% endblock %}
 
 {% block content %}
-<h2>Registered Users</h2>
+<div class="page-header">
+  <h2 class="page-title">
+    {{ "Responders" if target_role == "responder" else "Employees" }}
+  </h2>
+</div>
 
-{% if users %}
-    <table>
+<div class="page-body">
+  {% if users %}
+    <div class="table-wrap">
+      <table>
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Details</th>
+          </tr>
         </thead>
         <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.role }}</td>
-            </tr>
-            {% endfor %}
+          {% for u in users %}
+          <tr>
+            <td>{{ u[0] }}</td>
+            <td>{{ u[1] }}</td>
+            <td>{{ "Active" if u[2] == 1 else "Inactive" }}</td>
+            <td>
+              <button type="button" class="view-details-btn" data-user-id="{{ u[0] }}">
+                View details
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
-{% else %}
-    <p>No users found.</p>
-{% endif %}
+      </table>
+    </div>
+  {% else %}
+    <p class="empty-state">No users found.</p>
+  {% endif %}
+</div>
+
+<!-- Modal -->
+<div class="modal" id="userModal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">User Details</h3>
+      <button type="button" class="modal-close" id="modalClose">✕</button>
+    </div>
+
+    <div class="modal-body" id="modalBody">
+      <!-- filled by JS -->
+    </div>
+
+    <hr>
+
+    <form method="POST" action="{{ url_for('send_message') }}" id="messageForm">
+      <input type="hidden" name="receiver_id" id="receiver_id">
+
+      <label>Subject</label>
+      <input type="text" name="subject" id="msg_subject" required>
+
+      <label>Message</label>
+      <textarea name="body" id="msg_body" rows="4" required></textarea>
+
+      <div class="form-actions">
+        <button type="submit">Send</button>
+        <button type="button" id="cancelModal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

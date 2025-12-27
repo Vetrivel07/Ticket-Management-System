@@ -1,23 +1,37 @@
 {% extends "base.html" %}
-
 {% block title %}Login{% endblock %}
-
 {% block content %}
-<h2>Login</h2>
 
-{% if error %}
-    <p class="error">{{ error }}</p>
-{% endif %}
+<div class="page-header form-page">
+  <h2 class="page-title">Welcome Back!</h2>
+</div>
 
-<form action="{{ url_for('login') }}" method="POST">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+<div class="page-body form-page">
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
 
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+    {% if show_reactivate %}
+    <p class="error">
+        Account is inactive. Please click
+        <a href="{{ url_for('reactivate') }}" class="reactivate-link">reactivate</a>
+        your account.
+    </p>
+    {% endif %}
 
-    <button type="submit">Login</button>
-</form>
 
-<p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    <div class="form-card">
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    </div>
+</div>
 {% endblock %}

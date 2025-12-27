@@ -109,7 +109,7 @@ Beyond individual actions, the system enforces these automated constraints:
 ## 🛠️ Tech Stack
 
 | Component | Technology |
-| --- | --- | --- |
+| --- | --- |
 | **Backend** | `Python (Flask)` |
 | **Database** | `MySQL` |
 | **Frontend** | `HTML`, `CSS` |
@@ -121,7 +121,7 @@ Beyond individual actions, the system enforces these automated constraints:
 
 ## 📸 Preview
 
-![index](static/Screenshots/index.png)
+![index](static/preview/index.png)
 
 ---
 

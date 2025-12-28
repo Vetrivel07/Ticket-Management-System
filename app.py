@@ -3,18 +3,24 @@ from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import re
+import os
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+app.secret_key = os.environ.get('SECRET_KEY', 'secret_key')
 
 # MySQL Configuration
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Irtev'
-app.config['MYSQL_DB'] = 'ticket_system'
+app.config['MYSQL_HOST'] = os.environ['DB_HOST']
+app.config['MYSQL_USER'] = os.environ['DB_USER']
+app.config['MYSQL_PASSWORD'] = os.environ['DB_PASSWORD']
+app.config['MYSQL_DB'] = os.environ['DB_NAME']
+app.config['MYSQL_PORT'] = int(os.environ.get('DB_PORT', 3306))
+app.config['MYSQL_SSL'] = {'ssl': True}
 
 mysql = MySQL(app)
 

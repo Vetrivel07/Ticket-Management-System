@@ -32,7 +32,7 @@
             <td>{{ "Unread" if m.is_read == 0 else "Read" }}</td>
             <td>
               {% if m.is_read == 0 %}
-                <form method="POST" action="{{ url_for('mark_message_read', msg_id=m.id) }}" style="display:inline;">
+                <form method="POST" action="{{ url_for('messages.mark_message_read', msg_id=m.id) }}" style="display:inline;">
                   <button type="submit">Mark as read</button>
                 </form>
               {% else %}
@@ -45,7 +45,7 @@
       </table>
     </div>
 
-    <form method="POST" action="{{ url_for('mark_all_messages_read') }}" style="margin-top:12px;">
+    <form method="POST" action="{{ url_for('messages.mark_all_messages_read') }}" style="margin-top:12px;">
       <button type="submit">Mark all as read</button>
     </form>
   {% else %}

@@ -165,6 +165,12 @@
   }
 
   function closeModal() {
+    // move focus OUT of modal before hiding
+    const activeBtn = document.activeElement;
+    if (activeBtn && modal.contains(activeBtn)) {
+      activeBtn.blur();
+    }
+
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
     body.innerHTML = '';

@@ -37,14 +37,14 @@
 
       {% if session.get('username') %}
         <!-- Logged-in navigation -->
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('users') }}">Users</a>
+        <a href="{{ url_for('main.home') }}">Home</a>
+        <a href="{{ url_for('users.users_page') }}">Users</a>
 
         {% if session.get('role') == 'employee' %}
-          <a href="{{ url_for('create_ticket') }}">Add Ticket</a>
-          <a href="{{ url_for('manage_tickets') }}">Manage Tickets</a>
+          <a href="{{ url_for('tickets.create_ticket') }}">Add Ticket</a>
+          <a href="{{ url_for('tickets.manage_tickets') }}">Manage Tickets</a>
         {% elif session.get('role') == 'responder' %}
-          <a href="{{ url_for('home') }}">Manage Tickets</a>
+          <a href="{{ url_for('main.home') }}">Manage Tickets</a>
         {% endif %}
 
         <div class="profile">
@@ -57,22 +57,22 @@
               {{ session['username'] }} ({{ session['role'].capitalize() }})
             </div>
 
-            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('account.dashboard') }}">Dashboard</a>
 
-            <a href="{{ url_for('messages') }}">
+            <a href="{{ url_for('messages.messages') }}">
               Messages
               {% if unread_count and unread_count > 0 %}
                 <span class="badge">{{ unread_count }}</span>
               {% endif %}
             </a>
 
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
           </div>
         </div>
 
       {% else %}
         <!-- Public navigation -->
-        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('auth.login') }}">Login</a>
       {% endif %}
 
     </div>

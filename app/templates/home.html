@@ -43,7 +43,7 @@
             <td>{{ ticket.responder }}</td>
             {% if session['role'] == 'responder' %}
               <td>
-                <a href="{{ url_for('update_ticket', ticket_id=ticket.id) }}">
+                <a href="{{ url_for('tickets.update_ticket', ticket_id=ticket.id) }}">
                   <button>Update</button>
                 </a>
               </td>
@@ -59,7 +59,7 @@
 
   {% if session['role'] == 'employee' %}
     <div class="actions">
-      <a href="{{ url_for('create_ticket') }}">
+      <a href="{{ url_for('tickets.create_ticket') }}">
         <button class="btn-primary">Create Ticket</button>
       </a>
     </div>

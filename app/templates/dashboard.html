@@ -29,7 +29,7 @@
 
     <!-- Account Management -->
     <h3>Account Management</h3>
-    <a href="{{ url_for('edit_account') }}">
+    <a href="{{ url_for('account.edit_account') }}">
         <button>Edit Account</button>
     </a>
     <button type="button" id="openDeactivateModal" style="background-color:#dc3545;color:white;">
@@ -56,7 +56,7 @@
                 <p class="error" style="margin-top:10px;">{{ deactivate_error }}</p>
                 {% endif %}
 
-                <form method="POST" action="{{ url_for('delete_account') }}" id="deactivateForm">
+                <form method="POST" action="{{ url_for('account.delete_account') }}" id="deactivateForm">
                 <label>Username</label>
                 <input type="text" name="username" value="{{ user[1] }}" required>
 

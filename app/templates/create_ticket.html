@@ -9,11 +9,11 @@
         <p class="error">{{ error }}</p>
     {% endif %}
 
-    <form action="{{ url_for('create_ticket') }}" method="POST">
+    <form action="{{ url_for('tickets.create_ticket') }}" method="POST">
         <label for="title">Title</label>
-        <input type="text" name="title" placeholder="Enter ticket title" required>
+        <input type="text" id="title" name="title" placeholder="Enter ticket title" required>
         <label for="description">Description</label>
-        <textarea name="description" rows="5" placeholder="Describe your issue and add your contact details..." required></textarea>
+        <textarea id="description" name="description" rows="5" placeholder="Describe your issue and add your contact details..." required></textarea>
 
         <button type="submit">Submit Ticket</button>
     </form>

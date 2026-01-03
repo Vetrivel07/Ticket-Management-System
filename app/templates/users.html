@@ -56,7 +56,7 @@
 
     <hr>
 
-    <form method="POST" action="{{ url_for('send_message') }}" id="messageForm">
+    <form method="POST" action="{{ url_for('messages.send_message') }}" id="messageForm">
       <input type="hidden" name="receiver_id" id="receiver_id">
 
       <label>Subject</label>

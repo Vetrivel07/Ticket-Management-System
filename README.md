@@ -63,7 +63,7 @@ The system utilizes a Relational Schema designed to handle complex lifecycles an
 
 ## Data Model:
 
-![data_model](static/preview/data_model.png)
+![data_model](app/static/preview/data_model.png)
 
 ---
 
@@ -121,7 +121,7 @@ Beyond individual actions, the system enforces these automated constraints:
 
 ## 📸 Preview
 
-![index](static/preview/index.png)
+![index](app/static/preview/index.png)
 
 ---
 
